@@ -1,16 +1,18 @@
-import { create } from 'zustand'
+import { create } from "zustand";
 
 type State = {
-  count: number
-}
+  route: string;
+};
 
 type Actions = {
-  increment: () => void
-  decrement: () => void
-}
+  actions: {
+    changeRoute: (newRoute: string) => void;
+  };
+};
 
-export const useCountStore = create<State & Actions>((set) => ({
-    count: 0,
-    increment: () => set((state) => ({ count: state.count + 1 })),
-    decrement: () => set((state) => ({ count: state.count - 1 })),
-}))
+export const useRouteStore = create<State & Actions>((set) => ({
+  route: "main",
+  actions: {
+    changeRoute: (newRoute) => set(() => ({ route: newRoute })),
+  },
+}));

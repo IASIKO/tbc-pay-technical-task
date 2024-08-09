@@ -1,27 +1,28 @@
 import Input from "../UI/Input";
-import { UserSchema } from "../../schema/schema";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FormData } from "../../types/form-types";
+import { FormState, UseFormRegister, UseFormTrigger } from "react-hook-form";
 import Button from "../UI/Button";
 import { useRouteStore } from "../../context/store";
+import { FormData } from "../../types/form-types";
 
-const NameField = () => {
-	const {
-		register,
-		trigger,
-		formState: { errors },
-	} = useForm<FormData>({
-		resolver: zodResolver(UserSchema),
-	});
+type NameFieldProps = {
+	register: UseFormRegister<FormData>;
+	trigger: UseFormTrigger<FormData>;
+	formState: FormState<FormData>;
+};
+
+const NameField: React.FC<NameFieldProps> = ({
+	register,
+	trigger,
+	formState: { errors },
+}) => {
 	const { actions } = useRouteStore();
 
-	const onNextButtonHandler = () => {
-    trigger(["firstName", "lastName"]);
-		actions.changeRoute("password");
+	const onNextButtonHandler = async () => {
+		const result = await trigger(["firstName", "lastName"]);
+		if (result) {
+			actions.changeRoute("password");
+		}
 	};
-
-  
 
 	return (
 		<>

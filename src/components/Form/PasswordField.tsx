@@ -1,24 +1,27 @@
 import Input from "../UI/Input";
-import { UserSchema } from "../../schema/schema";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FormData } from "../../types/form-types";
 import Button from "../UI/Button";
+import { FormState, UseFormRegister, UseFormTrigger } from "react-hook-form";
 import { useRouteStore } from "../../context/store";
+import { FormData } from "../../types/form-types";
 
-const PasswordField = () => {
-	const {
-		register,
-		formState: { errors },
-		trigger,
-	} = useForm<FormData>({
-		resolver: zodResolver(UserSchema),
-	});
+type PasswordFieldProps = {
+	register: UseFormRegister<FormData>;
+	trigger: UseFormTrigger<FormData>;
+	formState: FormState<FormData>;
+};
+
+const PasswordField = ({
+	register,
+	trigger,
+	formState: { errors },
+}: PasswordFieldProps) => {
 	const { actions } = useRouteStore();
 
-	const onNextButtonHandler = () => {
-		trigger(["password", "confirmPassword"]);
-		actions.changeRoute("email");
+	const onNextButtonHandler = async () => {
+		const result = await trigger(["password", "confirmPassword"]);
+		if (result) {
+			actions.changeRoute("email");
+		}
 	};
 
 	return (

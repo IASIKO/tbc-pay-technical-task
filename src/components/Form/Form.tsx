@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { UserSchema } from "../../schema/schema";
 
 const Form = () => {
-	const { handleSubmit } = useForm<FormData>({
+	const { handleSubmit, register, trigger, formState } = useForm<FormData>({
 		resolver: zodResolver(UserSchema),
 	});
 	const { route } = useRouteStore();
@@ -21,9 +21,23 @@ const Form = () => {
 	return (
 		<Card>
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
-				{route === "name" && <NameField />}
-				{route === "password" && <PasswordField />}
-				{route === "email" && <EmailField />}
+				{route === "name" && (
+					<NameField
+						register={register}
+						trigger={trigger}
+						formState={formState}
+					/>
+				)}
+				{route === "password" && (
+					<PasswordField
+						register={register}
+						trigger={trigger}
+						formState={formState}
+					/>
+				)}
+				{route === "email" && (
+					<EmailField register={register} formState={formState} />
+				)}
 			</form>
 		</Card>
 	);

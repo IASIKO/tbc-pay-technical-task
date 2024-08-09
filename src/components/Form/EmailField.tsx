@@ -1,19 +1,15 @@
 import Input from "../UI/Input";
-import { UserSchema } from "../../schema/schema";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FormData } from "../../types/form-types";
 import Button from "../UI/Button";
 import { useRouteStore } from "../../context/store";
+import { FormData } from "../../types/form-types";
+import { FormState, UseFormRegister } from "react-hook-form";
 
-const EmailField = () => {
-	const {
-		register,
-		formState: { errors },
-	} = useForm<FormData>({
-		resolver: zodResolver(UserSchema),
-	});
+type EmailFieldProps = {
+	register: UseFormRegister<FormData>;
+	formState: FormState<FormData>;
+};
 
+const EmailField = ({ register, formState: { errors } }: EmailFieldProps) => {
 	const { actions } = useRouteStore();
 
 	return (

@@ -1,18 +1,18 @@
 import { create } from "zustand";
 
 type State = {
-  route: string;
+	route: string;
 };
 
 type Actions = {
-  actions: {
-    changeRoute: (newRoute: string) => void;
-  };
+	actions: {
+		changeRoute: (newRoute: string) => void;
+	};
 };
 
 export const useRouteStore = create<State & Actions>((set) => ({
-  route: "main",
-  actions: {
-    changeRoute: (newRoute) => set(() => ({ route: newRoute })),
-  },
+	route: "home",
+	actions: {
+		changeRoute: (newRoute) => set(() => ({ route: newRoute })),
+	},
 }));

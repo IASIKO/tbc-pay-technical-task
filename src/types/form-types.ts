@@ -1,11 +1,9 @@
 import { FieldError, UseFormRegister } from "react-hook-form";
 
 export type FormData = {
-	firstName: string;
-	lastName: string;
-	password: string;
-	confirmPassword: string;
-	email: string;
+	name: { firstName: string; lastName: string };
+	password: { password: string; confirmPassword: string };
+	email: { email: string };
 };
 
 export type FormFieldProps = {
@@ -17,8 +15,8 @@ export type FormFieldProps = {
 };
 
 export type ValidFieldNames =
-	| "firstName"
-	| "lastName"
-	| "password"
-	| "confirmPassword"
-	| "email";
+	| "name.firstName"
+	| "name.lastName"
+	| "password.password"
+	| "password.confirmPassword"
+	| "email.email";

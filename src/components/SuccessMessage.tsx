@@ -1,9 +1,13 @@
+import { UseFormWatch } from "react-hook-form";
+import { FormData } from "../types/form-types";
+
 type SuccessMessageProps = {
-	userData: string[];
+	watch: UseFormWatch<FormData>;
 };
 
-const SuccessMessage: React.FC<SuccessMessageProps> = ({ userData }) => {
-	const [firstName, lastName, email] = userData;
+const SuccessMessage: React.FC<SuccessMessageProps> = ({ watch }) => {
+	const { firstName, lastName } = watch("name");
+	const { email } = watch("email");
 
 	return (
 		<div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg shadow-lg w-11/12">
@@ -22,7 +26,7 @@ const SuccessMessage: React.FC<SuccessMessageProps> = ({ userData }) => {
 						completed the form!
 					</p>
 					<p className="text-xs text-gray-600">
-						Confirmation sent to: <strong>{`${email}`}</strong>
+						Confirmation sent to: <strong>{email}</strong>
 					</p>
 				</div>
 			</div>

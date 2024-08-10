@@ -1,12 +1,12 @@
 import { create } from "zustand";
 
 type State = {
-	route: string;
+	route: "home" | "name" | "password" | "email" | "success";
 };
 
 type Actions = {
 	actions: {
-		changeRoute: (newRoute: string) => void;
+		changeRoute: (newRoute: State["route"]) => void;
 	};
 };
 

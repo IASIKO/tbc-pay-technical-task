@@ -1,16 +1,17 @@
+import { UseFormTrigger } from "react-hook-form";
 import Button from "../../UI/Button";
+import { useFormHook } from "../hook";
+import { FormData } from "../../../types/form-types";
 
 type FieldActionsProps = {
-	onBackButtonHandler: () => void;
-	onNextButtonHandler: () => void;
+	trigger: UseFormTrigger<FormData>;
 };
 
-const FieldActions: React.FC<FieldActionsProps> = ({
-	onBackButtonHandler,
-	onNextButtonHandler,
-}) => {
+const FieldActions: React.FC<FieldActionsProps> = ({ trigger }) => {
+	const { onNextButtonHandler, onBackButtonHandler } = useFormHook(trigger);
+
 	return (
-		<div className="flex justify-between">
+		<div className="w-full p-4 flex justify-between">
 			<Button buttonType="button" onClick={onBackButtonHandler}>
 				Back
 			</Button>

@@ -8,6 +8,7 @@ import Card from "../UI/Card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormSchema } from "../../schema/schema";
 import SuccessMessage from "../SuccessMessage";
+import FieldActions from "./Fields/FieldActions";
 
 const Form = () => {
 	const { handleSubmit, register, trigger, formState, watch } =
@@ -26,29 +27,27 @@ const Form = () => {
 		<Card>
 			<form
 				onSubmit={handleSubmit(onSubmit)}
-				className="flex flex-col gap-4 p-4 w-80"
+				className="flex flex-col gap-4 p-4 w-full"
 			>
 				{route === "name" && (
 					<NameField
 						register={register}
 						formState={formState}
-						trigger={trigger}
 					/>
 				)}
 				{route === "password" && (
 					<PasswordField
 						register={register}
 						formState={formState}
-						trigger={trigger}
 					/>
 				)}
 				{route === "email" && (
-					<EmailField
-						register={register}
-						formState={formState}
-					/>
+					<EmailField register={register} formState={formState} />
 				)}
 			</form>
+			{(route === "name" || route === "password") && (
+				<FieldActions trigger={trigger} />
+			)}
 			{route === "success" && <SuccessMessage watch={watch} />}
 		</Card>
 	);

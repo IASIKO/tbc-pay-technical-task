@@ -1,16 +1,22 @@
 import Input from "../../UI/Input";
-import { FormState, UseFormRegister } from "react-hook-form";
+import { FormState, UseFormRegister, UseFormTrigger } from "react-hook-form";
 import { FormData } from "../../../types/form-types";
+import { useFormHook } from "../hook";
+import FieldActions from "./FieldActions";
 
 type PasswordFieldProps = {
 	register: UseFormRegister<FormData>;
+	trigger: UseFormTrigger<FormData>;
 	formState: FormState<FormData>;
 };
 
-const PasswordField = ({
+const PasswordField: React.FC<PasswordFieldProps> = ({
 	register,
+	trigger,
 	formState: { errors },
-}: PasswordFieldProps) => {
+}) => {
+	const { onNextButtonHandler, onBackButtonHandler } = useFormHook(trigger);
+
 	return (
 		<>
 			<Input
@@ -26,6 +32,10 @@ const PasswordField = ({
 				name="password.confirmPassword"
 				register={register}
 				error={errors.password?.confirmPassword}
+			/>
+			<FieldActions
+				onNextButtonHandler={onNextButtonHandler}
+				onBackButtonHandler={onBackButtonHandler}
 			/>
 		</>
 	);

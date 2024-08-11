@@ -8,8 +8,6 @@ import Card from "../UI/Card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormSchema } from "../../schema/schema";
 import SuccessMessage from "../SuccessMessage";
-import Button from "../UI/Button";
-import { useFormHook } from "./hook";
 
 const Form = () => {
 	const { handleSubmit, register, trigger, formState, watch } =
@@ -17,8 +15,6 @@ const Form = () => {
 			resolver: zodResolver(FormSchema),
 		});
 	const { route, actions } = useRouteStore();
-
-	const { onNextButtonHandler, onBackButtonHandler } = useFormHook(trigger);
 
 	const onSubmit = (data: FormData) => {
 		if (data) {
@@ -33,27 +29,25 @@ const Form = () => {
 				className="flex flex-col gap-4 p-4 w-80"
 			>
 				{route === "name" && (
-					<NameField register={register} formState={formState} />
+					<NameField
+						register={register}
+						formState={formState}
+						trigger={trigger}
+					/>
 				)}
 				{route === "password" && (
-					<PasswordField register={register} formState={formState} />
+					<PasswordField
+						register={register}
+						formState={formState}
+						trigger={trigger}
+					/>
 				)}
 				{route === "email" && (
-					<EmailField register={register} formState={formState} />
-				)}
-				{route !== "success" && (
-					<div className="flex justify-between">
-						<Button buttonType="button" onClick={onBackButtonHandler}>
-							Back
-						</Button>
-						{route === "email" ? (
-							<Button buttonType="submit">Submit</Button>
-						) : (
-							<Button buttonType="button" onClick={onNextButtonHandler}>
-								Next
-							</Button>
-						)}
-					</div>
+					<EmailField
+						register={register}
+						formState={formState}
+						trigger={trigger}
+					/>
 				)}
 			</form>
 			{route === "success" && <SuccessMessage watch={watch} />}

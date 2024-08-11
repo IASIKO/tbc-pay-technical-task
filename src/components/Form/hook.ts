@@ -2,26 +2,28 @@ import { UseFormTrigger } from "react-hook-form";
 import { FormData } from "../../types/form-types";
 import { useRouteStore } from "../../context/store";
 
-export const useFormHook = (trigger: UseFormTrigger<FormData>) => {
+export const useFormHook = (trigger?: UseFormTrigger<FormData>) => {
 	const { route, actions } = useRouteStore();
 
 	const onNextButtonHandler = async () => {
-		let result;
+		let result = null;
 
-		if (route === "name") {
-			result = await trigger("name", {
-				shouldFocus: true,
-			});
-			if (result) {
-				actions.changeRoute("password");
+		if (trigger) {
+			if (route === "name") {
+				result = await trigger("name", {
+					shouldFocus: true,
+				});
+				if (result) {
+					actions.changeRoute("password");
+				}
 			}
-		}
-		if (route === "password") {
-			result = await trigger("password", {
-				shouldFocus: true,
-			});
-			if (result) {
-				actions.changeRoute("email");
+			if (route === "password") {
+				result = await trigger("password", {
+					shouldFocus: true,
+				});
+				if (result) {
+					actions.changeRoute("email");
+				}
 			}
 		}
 	};

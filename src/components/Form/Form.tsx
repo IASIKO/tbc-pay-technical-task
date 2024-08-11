@@ -46,7 +46,6 @@ const Form = () => {
 					<EmailField
 						register={register}
 						formState={formState}
-						trigger={trigger}
 					/>
 				)}
 			</form>

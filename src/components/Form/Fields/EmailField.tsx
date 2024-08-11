@@ -1,21 +1,19 @@
 import Input from "../../UI/Input";
 import { FormData } from "../../../types/form-types";
-import { FormState, UseFormRegister, UseFormTrigger } from "react-hook-form";
+import { FormState, UseFormRegister } from "react-hook-form";
 import Button from "../../UI/Button";
 import { useFormHook } from "../hook";
 
 type EmailFieldProps = {
 	register: UseFormRegister<FormData>;
-	trigger: UseFormTrigger<FormData>;
 	formState: FormState<FormData>;
 };
 
 const EmailField: React.FC<EmailFieldProps> = ({
 	register,
-	trigger,
 	formState: { errors },
 }) => {
-	const { onBackButtonHandler } = useFormHook(trigger);
+	const { onBackButtonHandler } = useFormHook();
 
 	return (
 		<>

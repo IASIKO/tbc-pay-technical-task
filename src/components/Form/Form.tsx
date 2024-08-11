@@ -17,9 +17,8 @@ const Form = () => {
 			resolver: zodResolver(FormSchema),
 		});
 	const { route, actions } = useRouteStore();
-	console.log("🚀 ~ Form ~ route:", route)
 
-	const onNextButtonHandler = useFormHook(trigger)
+	const { onNextButtonHandler, onBackButtonHandler } = useFormHook(trigger);
 
 	const onSubmit = (data: FormData) => {
 		if (data) {
@@ -34,34 +33,28 @@ const Form = () => {
 				className="flex flex-col gap-4 p-4 w-80"
 			>
 				{route === "name" && (
-					<NameField
-						register={register}
-						formState={formState}
-					/>
+					<NameField register={register} formState={formState} />
 				)}
 				{route === "password" && (
-					<PasswordField
-						register={register}
-						formState={formState}
-					/>
+					<PasswordField register={register} formState={formState} />
 				)}
 				{route === "email" && (
 					<EmailField register={register} formState={formState} />
 				)}
-				{route !== 'success' && <div className="flex justify-between">
-					<Button
-						buttonType="button"
-						onClick={() => actions.changeRoute("home")}
-					>
-						Back
-					</Button>
-					<Button
-						buttonType={route === "email" ? "submit" : "button"}
-						onClick={onNextButtonHandler}
-					>
-						{route === "email" ? "Submit" : "Next"}
-					</Button>
-				</div>}
+				{route !== "success" && (
+					<div className="flex justify-between">
+						<Button buttonType="button" onClick={onBackButtonHandler}>
+							Back
+						</Button>
+						{route === "email" ? (
+							<Button buttonType="submit">Submit</Button>
+						) : (
+							<Button buttonType="button" onClick={onNextButtonHandler}>
+								Next
+							</Button>
+						)}
+					</div>
+				)}
 			</form>
 			{route === "success" && <SuccessMessage watch={watch} />}
 		</Card>

@@ -30,16 +30,10 @@ const Form = () => {
 				className="flex flex-col gap-4 p-4 w-full"
 			>
 				{route === "name" && (
-					<NameField
-						register={register}
-						formState={formState}
-					/>
+					<NameField register={register} formState={formState} />
 				)}
 				{route === "password" && (
-					<PasswordField
-						register={register}
-						formState={formState}
-					/>
+					<PasswordField register={register} formState={formState} />
 				)}
 				{route === "email" && (
 					<EmailField register={register} formState={formState} />
